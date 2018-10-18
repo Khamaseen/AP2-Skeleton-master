@@ -48,7 +48,7 @@ public class TokenStream {
         try {
             while( true ) {
                 it = userInputReader.read();
-                if( it == -1 ) {
+                if( it == -1 || it == 0 ) {
                     return new Token();
                 }
                 if( !(11 < it && it < 15) && (it != 32)) {
