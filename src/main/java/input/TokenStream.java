@@ -9,9 +9,9 @@ public class TokenStream {
 
     public TokenStream() {
         System.out.println("creating stream :: TokenStream");
-        //File file = new File("C:\\Users\\d.gijzen\\Desktop\\Uni\\AP2-Skeleton-master\\src\\main\\java\\calc_in");
+        File file = new File("C:\\Users\\d.gijzen\\Desktop\\Uni\\AP2-Skeleton-master\\src\\main\\java\\calc_in");
         //File file = new File("C:\\Users\\d.gijzen\\Desktop\\Uni\\AP2-Skeleton-master\\src\\main\\java\\test2_in");
-        File file = new File("C:\\Users\\d.gijzen\\Desktop\\Uni\\AP2-Skeleton-master\\src\\main\\java\\ui\\endoffile");
+        //File file = new File("C:\\Users\\d.gijzen\\Desktop\\Uni\\AP2-Skeleton-master\\src\\main\\java\\ui\\endoffile");
 
         InputStream fis;
         try {
@@ -53,8 +53,6 @@ public class TokenStream {
                 }
                 if( !(11 < it && it < 15) && (it != 32)) {
                     return new Token((char) it);
-                }else{
-                    return new Token();
                 }
             }
         }catch (IOException e) {

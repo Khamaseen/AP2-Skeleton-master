@@ -126,8 +126,8 @@ public class ReceiverOfInput {
             case Token.START_EXPR:
                 tokenStream.putBack(t.character);
                 set = readExpression();
-//			t = tokenStream.skipAndRead();
-//			if ( t.kind != Token.END_EXPR ) {}
+			t = tokenStream.skipAndRead();
+			if ( t.kind != Token.END_EXPR ) {}
                 break;
             default:
                 throw new APException("expected an assignment");

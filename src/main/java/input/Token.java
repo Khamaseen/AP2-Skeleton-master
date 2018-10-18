@@ -33,7 +33,6 @@ public class Token {
     public char character;
 
     public Token() {
-        character = 'a';
         kind = EOF;
     }
 
