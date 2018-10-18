@@ -14,9 +14,9 @@ public class Controller {
     private ReceiverOfInput receiver;
     private View view;
 
-    public Controller(InputStream in) {
+    public Controller() {
         model = new Model();
-        receiver = new ReceiverOfInput(in);
+        receiver = new ReceiverOfInput();
         receiver.injectController(this);
         view = new View(System.out);
     }

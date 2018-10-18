@@ -14,9 +14,8 @@ public class ReceiverOfInput {
     private Controller controller;
     private int count;
 
-    public ReceiverOfInput(InputStream in) {
+    public ReceiverOfInput() {
         tokenStream = new TokenStream();
-        streamIn = in;
     }
 
     public void injectController(Controller controller) {
@@ -24,8 +23,8 @@ public class ReceiverOfInput {
     }
 
     public void readInput() {
+        System.out.println("readInput() :: ReceiverOfInput");
         count = 1;
-        tokenStream.open(streamIn);
         try {
             while(!readProgram()) {
                 controller.printError("continue next line");
@@ -38,6 +37,7 @@ public class ReceiverOfInput {
     }
 
     private Boolean readProgram() throws APException {
+        System.out.println("readProgram() :: ReceiverOfINput");
         try {
             readStatements();
             Token t = tokenStream.skipAndRead();
@@ -56,6 +56,7 @@ public class ReceiverOfInput {
 
     private void readStatements() throws APException {
         while(true) {
+            System.out.println("readStatements() while - loop :: ReceiverOfInputs");
             Token t = tokenStream.skipAndRead();
             switch(t.kind) {
                 case Token.COMMENT: readComment(); break;

@@ -9,30 +9,29 @@ public class Main {
     private static Controller controller;
 
 
-    private void start() {
-        // Create a scanner on System.in
-        
-        // While there is input, read line and parse it.
+    private static void start() {
+        System.out.println("controller start, inside main");
+        controller.start();
     }
 
     public static void main(String[] argv) {
         /**
          * original code from skeleton
          */
-        new Main().start();
 
 
         /**
          * code self made
          */
-        File file = new File("/home/dennis/Programs/eclipse/workspace/calc_in");
-        try {
-            controller = new Controller(new FileInputStream(file));
-        } catch (FileNotFoundException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-
-        controller.start();
+//        File file = new File("/home/dennis/Programs/eclipse/workspace/calc_in");
+//        try {
+//            controller = new Controller(new FileInputStream(file));
+//        } catch (FileNotFoundException e) {
+//            // TODO Auto-generated catch block
+//            e.printStackTrace();
+//        }
+        System.out.println("inside main ");
+        controller = new Controller();
+        start();
     }
 }

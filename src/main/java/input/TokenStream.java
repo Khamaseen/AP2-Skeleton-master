@@ -3,22 +3,18 @@ package input;
 import controller.APException;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PushbackReader;
 
 public class TokenStream {
     private PushbackReader userInputReader;
 
-    public TokenStream() {}
-
-    /**
-     * open the inputStream
-     * @param stream
-     */
-    public void open(InputStream stream) {
-        userInputReader = new PushbackReader(new InputStreamReader(stream));
+    public TokenStream() {
+        System.out.println("creating stream :: TokenStream");
+        userInputReader = new PushbackReader(new InputStreamReader(System.in));
+        System.out.println("stream created :: TokenStream");
     }
+
 
     /**
      * close the inputStream
