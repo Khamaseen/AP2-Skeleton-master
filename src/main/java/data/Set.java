@@ -34,8 +34,12 @@ public class Set<E extends Comparable<E>> implements SetInterface<E> {
     public boolean addElement(E element) {
         if(list.size() >= MAX_SIZE) return false;
         else {
-            list.insert(element);
-            return true;
+            if(!list.find(element)){
+                list.insert(element);
+                return true;
+            }else{
+                return false;
+            }
         }
     }
 

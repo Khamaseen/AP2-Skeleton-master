@@ -32,7 +32,10 @@ public class Token {
     public int kind = EOF; //INITIAL SET TO END OF LINE
     public char character;
 
-    public Token() {}
+    public Token() {
+        character = 'a';
+        kind = EOF;
+    }
 
     public Token(char character) {
         this.character = character;

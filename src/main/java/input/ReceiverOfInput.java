@@ -27,7 +27,7 @@ public class ReceiverOfInput {
         count = 1;
         try {
             while(!readProgram()) {
-                controller.printError("continue next line");
+                // TODO error handling
             }
         } catch (APException e) {
             // TODO Auto-generated catch block
@@ -37,15 +37,16 @@ public class ReceiverOfInput {
     }
 
     private Boolean readProgram() throws APException {
-        System.out.println("readProgram() :: ReceiverOfINput");
+      //  System.out.println("readProgram() :: ReceiverOfINput");
+
         try {
-            readStatements();
-            Token t = tokenStream.skipAndRead();
-            if( t.kind != Token.EOF ) {
-                throw new APException("Expecting end of file.");
-            }else {
-                return true;
-            }
+           if(!readStatements()){
+               //todo some error thing
+               return false;
+           }
+           else{
+               return true;
+           }
         } catch (APException e) {
             controller.printError(e.getMessage());
             tokenStream.skipLine();
@@ -54,18 +55,18 @@ public class ReceiverOfInput {
         return false;
     }
 
-    private void readStatements() throws APException {
+    private boolean readStatements() throws APException {
         while(true) {
-            System.out.println("readStatements() while - loop :: ReceiverOfInputs");
+           // System.out.println("readStatements() while - loop :: ReceiverOfInputs");
             Token t = tokenStream.skipAndRead();
             switch(t.kind) {
                 case Token.COMMENT: readComment(); break;
                 case Token.PRINT: readPrint(); break;
                 case Token.CHAR: readAssignment(t.character); break;
                 case Token.EOL: throw new APException("Error no statement");
+                case Token.EOF: return true;
                 default:
-                    tokenStream.putBack(t.character);
-                    return;
+                    return false;
             }
             count++;
         }

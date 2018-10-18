@@ -2,16 +2,27 @@ package input;
 
 import controller.APException;
 
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PushbackReader;
+import java.io.*;
 
 public class TokenStream {
     private PushbackReader userInputReader;
 
     public TokenStream() {
         System.out.println("creating stream :: TokenStream");
-        userInputReader = new PushbackReader(new InputStreamReader(System.in));
+        //File file = new File("C:\\Users\\d.gijzen\\Desktop\\Uni\\AP2-Skeleton-master\\src\\main\\java\\calc_in");
+        //File file = new File("C:\\Users\\d.gijzen\\Desktop\\Uni\\AP2-Skeleton-master\\src\\main\\java\\test2_in");
+        File file = new File("C:\\Users\\d.gijzen\\Desktop\\Uni\\AP2-Skeleton-master\\src\\main\\java\\ui\\endoffile");
+
+        InputStream fis;
+        try {
+            fis = new FileInputStream(file);
+            userInputReader = new PushbackReader(new InputStreamReader(fis));
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        //userInputReader = new PushbackReader(new InputStreamReader(System.in));
         System.out.println("stream created :: TokenStream");
     }
 
@@ -37,8 +48,13 @@ public class TokenStream {
         try {
             while( true ) {
                 it = userInputReader.read();
+                if( it == -1 ) {
+                    return new Token();
+                }
                 if( !(11 < it && it < 15) && (it != 32)) {
                     return new Token((char) it);
+                }else{
+                    return new Token();
                 }
             }
         }catch (IOException e) {
