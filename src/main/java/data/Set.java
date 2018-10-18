@@ -4,7 +4,7 @@ public class Set<E extends Comparable<E>> implements SetInterface<E> {
 
     private List<E> list;
 
-    private final int MAX_SIZE = 80;
+    private final int MAX_SIZE = 800;
 
     public Set() {
         list = new List<E>();
