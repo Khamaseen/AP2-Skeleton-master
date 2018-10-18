@@ -10,7 +10,6 @@ public class Main {
 
 
     private static void start() {
-        System.out.println("controller start, inside main");
         controller.start();
     }
 
@@ -30,7 +29,6 @@ public class Main {
 //            // TODO Auto-generated catch block
 //            e.printStackTrace();
 //        }
-        System.out.println("inside main ");
         controller = new Controller();
         start();
     }

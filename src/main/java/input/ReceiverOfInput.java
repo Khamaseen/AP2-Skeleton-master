@@ -23,7 +23,6 @@ public class ReceiverOfInput {
     }
 
     public void readInput() {
-        System.out.println("readInput() :: ReceiverOfInput");
         count = 1;
         try {
             while(!readProgram()) {
@@ -37,8 +36,6 @@ public class ReceiverOfInput {
     }
 
     private Boolean readProgram() throws APException {
-      //  System.out.println("readProgram() :: ReceiverOfINput");
-
         try {
            if(!readStatements()){
                //todo some error thing
@@ -57,7 +54,6 @@ public class ReceiverOfInput {
 
     private boolean readStatements() throws APException {
         while(true) {
-           // System.out.println("readStatements() while - loop :: ReceiverOfInputs");
             Token t = tokenStream.skipAndRead();
             switch(t.kind) {
                 case Token.COMMENT: readComment(); break;
@@ -70,7 +66,8 @@ public class ReceiverOfInput {
             }
             count++;
             if(count == 107){
-                System.out.println("107..");
+                count++;
+                count--;
             }
         }
     }

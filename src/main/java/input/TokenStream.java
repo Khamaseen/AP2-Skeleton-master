@@ -8,7 +8,6 @@ public class TokenStream {
     private PushbackReader userInputReader;
 
     public TokenStream() {
-        System.out.println("creating stream :: TokenStream");
         File file = new File("C:\\Users\\d.gijzen\\Desktop\\Uni\\AP2-Skeleton-master\\src\\main\\java\\calc_in");
         //File file = new File("C:\\Users\\d.gijzen\\Desktop\\Uni\\AP2-Skeleton-master\\src\\main\\java\\test2_in");
         //File file = new File("C:\\Users\\d.gijzen\\Desktop\\Uni\\AP2-Skeleton-master\\src\\main\\java\\ui\\endoffile");
@@ -23,7 +22,6 @@ public class TokenStream {
         }
 
         //userInputReader = new PushbackReader(new InputStreamReader(System.in));
-        System.out.println("stream created :: TokenStream");
     }
 
 
