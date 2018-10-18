@@ -92,8 +92,6 @@ public class ReceiverOfInput {
             case Token.START_EXPR:
                 tokenStream.putBack(t.character);
                 set = readExpression();
-//			t = tokenStream.skipAndRead();
-//			if ( t.kind != Token.END_EXPR ) {}
                 break;
             default:
                 throw new APException("");
@@ -129,8 +127,6 @@ public class ReceiverOfInput {
             case Token.START_EXPR:
                 tokenStream.putBack(t.character);
                 set = readExpression();
-			t = tokenStream.skipAndRead();
-			if ( t.kind != Token.END_EXPR ) {}
                 break;
             default:
                 throw new APException("expected an assignment");
@@ -181,13 +177,7 @@ public class ReceiverOfInput {
             Token t = tokenStream.skipAndRead();
             switch(t.kind) {
                 case Token.INTERSECT: set = (Set<Long>) set.intersect(readFactor()); break;
-                case Token.EOF:
-                case Token.EOL:
-//				tokenStream.putBack(t.character);
-//				return set;
                 default:
-//				String excep = String.format("$s: expeting end of line or intersect :: readFactor() ", count);
-//				throw new controller.APException(excep);
                     tokenStream.putBack(t.character);
                     return set;
             }
