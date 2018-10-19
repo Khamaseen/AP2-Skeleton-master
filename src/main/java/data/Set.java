@@ -110,8 +110,7 @@ public class Set<E extends Comparable<E>> implements SetInterface<E> {
         SetInterface<E> temp = new Set<E>();
         if(this.getSize() == 0 || input.getSize() == 0) return this;
         list.goToFirst();
-
-
+        
         for(int i = 0; i < this.getSize(); i++) {
             E currElem = this.list.retrieve();
             if(!input.containsElement(currElem)) {
