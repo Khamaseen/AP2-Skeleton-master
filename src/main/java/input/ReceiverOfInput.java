@@ -59,10 +59,13 @@ public class ReceiverOfInput {
                 case Token.COMMENT: readComment(); break;
                 case Token.PRINT: readPrint(); break;
                 case Token.CHAR: readAssignment(t.character); break;
-                case Token.EOL: throw new APException("Error no statement");
+                case Token.EOL:
+                    String message = String.format("%d: Error no statement", count);
+                    throw new APException(message);
                 case Token.EOF: return true;
                 default:
-                    return false;
+                    String except = String.format("%d: error unknown start of statement", count);
+                   throw new APException(except);
             }
             count++;
             if(count == 107){
@@ -105,13 +108,18 @@ public class ReceiverOfInput {
             return;
         }
 
-        throw new APException("unexpected character after print statement /expecting eol");
+        tokenStream.putBack(t.character);
+        String message = String.format("%d: unexpected character after print statement", count);
+        throw new APException(message);
     }
 
     private void readAssignment(char first) throws APException {
         Identifier identifier = readIdentifier(first);
         Token t = tokenStream.skipAndRead();
-        if ( t.kind != Token.ASSIGNMENT ) {}
+        if ( t.kind != Token.ASSIGNMENT ) {
+            tokenStream.putBack(t.character);
+            String message = String.format("%d: expected an assignment after an identifier", count);
+            throw new APException(message);};
 
         Set<Long> set = new Set<Long>();
         t = tokenStream.skipAndRead();
@@ -126,7 +134,9 @@ public class ReceiverOfInput {
                 set = readExpression();
                 break;
             default:
-                throw new APException("expected an assignment");
+                tokenStream.putBack(t.character);
+                String message = String.format("%d: expexted an assignement after \"=\"", count);
+                throw new APException(message);
         }
 
         t = tokenStream.skipAndRead();
@@ -140,7 +150,9 @@ public class ReceiverOfInput {
             return;
         }
 
-        throw new APException("unexpected character after statement");
+        tokenStream.putBack(t.character);
+        String except = String.format("%d: unexpected character after statement", count);
+        throw new APException(except);
     }
 
 
@@ -197,12 +209,14 @@ public class ReceiverOfInput {
                 set = readExpression();
                 t = tokenStream.skipAndRead();
                 if( t.kind != Token.END_EXPR ) {
+                    tokenStream.putBack(t.character);
                     String excep = String.format("%d: missing parentheses", count);
                     throw new APException(excep);
                 }
                 return set;
             default:
-                String excep = String.format("$s: expecting set, identifier, or expression :: readFactor()", count);
+                tokenStream.putBack(t.character);
+                String excep = String.format("%d: expecting set, identifier, or expression :: readFactor()", count);
                 throw new APException(excep);
         }
 
@@ -229,7 +243,8 @@ public class ReceiverOfInput {
                     return set;
 
                 default:
-                    String excep = String.format("$s: unexpected character at set :: readSet()", count);
+                    tokenStream.putBack(t.character);
+                    String excep = String.format("%d: unexpected character at set :: readSet()", count);
                     throw new APException(excep);
             }
         }
