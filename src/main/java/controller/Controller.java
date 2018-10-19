@@ -8,7 +8,7 @@ import ui.View;
 
 import java.math.BigInteger;
 
-public class Controller {
+public class Controller implements ControllerMainInterface, ControllerReceiverInterface{
 
     private Model model;
     private ReceiverOfInput receiver;
@@ -42,6 +42,7 @@ public class Controller {
         view.displayAnswers(String.format(answer));
     }
 
+    //receiver
     public void printError(String message) {
         view.displayAnswers(message);
     }

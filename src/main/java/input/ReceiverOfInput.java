@@ -2,6 +2,7 @@ package input;
 
 import controller.APException;
 import controller.Controller;
+import controller.ControllerReceiverInterface;
 import data.Identifier;
 import data.Set;
 
@@ -10,7 +11,7 @@ import java.math.BigInteger;
 public class ReceiverOfInput {
 
     private TokenStream tokenStream;
-    private Controller controller;
+    private ControllerReceiverInterface controller;
     private int count;
 
     public ReceiverOfInput() {

@@ -1,8 +1,9 @@
 import controller.Controller;
+import controller.ControllerMainInterface;
 
 public class Main {
 
-    private static Controller controller;
+    private static ControllerMainInterface controller;
 
 
     private static void start() {
