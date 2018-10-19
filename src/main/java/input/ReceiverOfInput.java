@@ -5,6 +5,8 @@ import controller.Controller;
 import data.Identifier;
 import data.Set;
 
+import java.math.BigInteger;
+
 public class ReceiverOfInput {
 
     private TokenStream tokenStream;
@@ -69,7 +71,7 @@ public class ReceiverOfInput {
     }
 
     private void readPrint() throws APException {
-        Set<Long> set = new Set<Long>();
+        Set<BigInteger> set = new Set<BigInteger>();
 
         Token t = tokenStream.skipAndRead();
         switch(t.kind) {
@@ -89,11 +91,11 @@ public class ReceiverOfInput {
         }
 
         t = tokenStream.skipAndRead();
-        if ( t.kind == Token.EOL ) {
+        if(t.kind == Token.EOL) {
             printSet(set);
             return;
         }
-        if ( t.kind == Token.EOF ) {
+        if(t.kind == Token.EOF) {
             tokenStream.putBack(t.character);
             printSet(set);
             return;
@@ -107,12 +109,12 @@ public class ReceiverOfInput {
     private void readAssignment(char first) throws APException {
         Identifier identifier = readIdentifier(first);
         Token t = tokenStream.skipAndRead();
-        if ( t.kind != Token.ASSIGNMENT ) {
+        if(t.kind != Token.ASSIGNMENT) {
             tokenStream.putBack(t.character);
             String message = String.format("%d: expected an assignment after an identifier", count);
             throw new APException(message);};
 
-        Set<Long> set = new Set<Long>();
+        Set<BigInteger> set = new Set<BigInteger>();
         t = tokenStream.skipAndRead();
         switch(t.kind) {
             case Token.CHAR:
@@ -131,11 +133,11 @@ public class ReceiverOfInput {
         }
 
         t = tokenStream.skipAndRead();
-        if ( t.kind == Token.EOL ) {
+        if(t.kind == Token.EOL) {
             insertIntoHash(identifier, set);
             return;
         }
-        if ( t.kind == Token.EOF ) {
+        if(t.kind == Token.EOF) {
             tokenStream.putBack(t.character);
             insertIntoHash(identifier, set);
             return;
@@ -148,20 +150,20 @@ public class ReceiverOfInput {
 
 
 
-    private Set<Long> readExpression() throws APException {
-        Set<Long> set = readTerm();
+    private Set<BigInteger> readExpression() throws APException {
+        Set<BigInteger> set = readTerm();
 
         while(true) {
             Token t = tokenStream.skipAndRead();
             switch(t.kind) {
                 case Token.UNION:
-                    set = (Set<Long>) set.union(readTerm());
+                    set = (Set<BigInteger>) set.union(readTerm());
                     break;
                 case Token.COMPLEMENT:
-                    set = (Set<Long>) set.complement(readTerm());
+                    set = (Set<BigInteger>) set.complement(readTerm());
                     break;
                 case Token.SYM_DIFF:
-                    set = (Set<Long>) set.symmetricDifference(readTerm());
+                    set = (Set<BigInteger>) set.symmetricDifference(readTerm());
                     break;
                 default:
                     tokenStream.putBack(t.character);
@@ -170,13 +172,13 @@ public class ReceiverOfInput {
         }
     }
 
-    private Set<Long> readTerm() throws APException {
-        Set<Long> set = readFactor();
+    private Set<BigInteger> readTerm() throws APException {
+        Set<BigInteger> set = readFactor();
 
         while(true) {
             Token t = tokenStream.skipAndRead();
             switch(t.kind) {
-                case Token.INTERSECT: set = (Set<Long>) set.intersect(readFactor()); break;
+                case Token.INTERSECT: set = (Set<BigInteger>) set.intersect(readFactor()); break;
                 default:
                     tokenStream.putBack(t.character);
                     return set;
@@ -184,8 +186,8 @@ public class ReceiverOfInput {
         }
     }
 
-    private Set<Long> readFactor() throws APException {
-        Set<Long> set = new Set<Long>();
+    private Set<BigInteger> readFactor() throws APException {
+        Set<BigInteger> set = new Set<BigInteger>();
 
         Token t = tokenStream.skipAndRead();
         switch(t.kind) {
@@ -194,12 +196,12 @@ public class ReceiverOfInput {
                 return set;
             case Token.CHAR:
                 Identifier identifier = readIdentifier(t.character);
-                set = (Set<Long>) getSetFromIdentifier(identifier);
+                set = (Set<BigInteger>) getSetFromIdentifier(identifier);
                 return set;
             case Token.START_EXPR:
                 set = readExpression();
                 t = tokenStream.skipAndRead();
-                if( t.kind != Token.END_EXPR ) {
+                if(t.kind != Token.END_EXPR) {
                     tokenStream.putBack(t.character);
                     String excep = String.format("%d: missing parentheses", count);
                     throw new APException(excep);
@@ -212,8 +214,8 @@ public class ReceiverOfInput {
         }
     }
 
-    private Set<Long> readSet() throws APException {
-        Set<Long> set = new Set<Long>();
+    private Set<BigInteger> readSet() throws APException {
+        Set<BigInteger> set = new Set<BigInteger>();
 
         Token t = tokenStream.skipAndRead();
         if (t.kind == Token.END_SET) { return set; }
@@ -224,17 +226,17 @@ public class ReceiverOfInput {
                 case Token.NATURAL:
                     set.addElement(readNaturalNumber(t.character));
                     t = tokenStream.skipAndRead();
-                    if( t.kind == Token.SEPERATOR ) { break; }
-                    if (t.kind == Token.END_SET ) { return set; }
+                    if(t.kind == Token.SEPERATOR) { break; }
+                    if(t.kind == Token.END_SET) { return set; }
                     tokenStream.putBack(t.character);
                     String excep1 = String.format("%d: unexpected character at set :: readSet()", count);
                     throw new APException(excep1);
                 case Token.ZERO:
                     NaturalNumber naturalNumber = new NaturalNumber(t.character);
-                    set.addElement(naturalNumber.getLong());
+                    set.addElement(naturalNumber.getBigInteger());
                     t = tokenStream.skipAndRead();
-                    if( t.kind == Token.SEPERATOR ) { break; }
-                    if (t.kind == Token.END_SET ) { return set; }
+                    if(t.kind == Token.SEPERATOR) { break; }
+                    if(t.kind == Token.END_SET) { return set; }
                     tokenStream.putBack(t.character);
                     String answer = String.format("%d: unexpected character at set :: readSet()", count);
                     throw new APException(answer);
@@ -252,7 +254,7 @@ public class ReceiverOfInput {
         Identifier identifier = new Identifier(firstChar);
         while( true ) {
             Token t = tokenStream.readAny();
-            if( t.kind == Token.CHAR || t.kind == Token.NATURAL || t.kind == Token.ZERO ) {
+            if(t.kind == Token.CHAR || t.kind == Token.NATURAL || t.kind == Token.ZERO) {
                 identifier.add(t.character);
             }else {
                 tokenStream.putBack(t.character);
@@ -261,29 +263,28 @@ public class ReceiverOfInput {
         }
     }
 
-    private Long readNaturalNumber(char first) throws APException {
+    private BigInteger readNaturalNumber(char first) throws APException {
         NaturalNumber naturalNumber = new NaturalNumber(first);
 
         while(true) {
             Token t = tokenStream.readAny();
-            if( t.kind != Token.NATURAL && t.kind != Token.ZERO ) {
+            if(t.kind != Token.NATURAL && t.kind != Token.ZERO) {
                 tokenStream.putBack(t.character);
                 break;
             }
             naturalNumber.add(t.character);
         }
-        return naturalNumber.getLong();
+        return naturalNumber.getBigInteger();
     }
 
-
-    public void insertIntoHash(Identifier identifier, Set<Long> set) {
+    public void insertIntoHash(Identifier identifier, Set<BigInteger> set) {
         controller.insert(identifier, set);
     }
     public void printSet(Set set) {
         controller.print(set, count);
     }
-    public Set<Long> getSetFromIdentifier(Identifier identifier) throws APException {
-        Set<Long> set = controller.getSet(identifier);
+    public Set<BigInteger> getSetFromIdentifier(Identifier identifier) throws APException {
+        Set<BigInteger> set = controller.getSet(identifier);
         if (set == null) {
             String message = String.format("%d: unknown identifier", count);
             throw new APException(message); }

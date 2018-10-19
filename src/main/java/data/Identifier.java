@@ -16,7 +16,7 @@ public class Identifier {
     }
 
     public void add(char character) {
-        if( !(lastPosition < identifier.length) ) {
+        if(!(lastPosition < identifier.length)) {
             identifier = doubleIdentifier(identifier, lastPosition);
         }
         identifier[lastPosition++] = character;
@@ -44,7 +44,7 @@ public class Identifier {
 
     private static int sumOfChar(char[] row, int last) {
         int sum = 1;
-        for( int i =0; i<last; i++) {
+        for(int i =0; i<last; i++) {
             sum += row[i]*i;
             sum += row[i];
         }
@@ -65,5 +65,4 @@ public class Identifier {
         }
         return false;
     }
-
 }

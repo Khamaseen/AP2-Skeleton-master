@@ -6,6 +6,8 @@ import data.Set;
 import input.ReceiverOfInput;
 import ui.View;
 
+import java.math.BigInteger;
+
 public class Controller {
 
     private Model model;
@@ -25,7 +27,7 @@ public class Controller {
     }
 
     //used by receiverofinput
-    public Set<Long> getSet(Identifier identifier) {
+    public Set<BigInteger> getSet(Identifier identifier) {
         return model.obtain(identifier);
     }
 

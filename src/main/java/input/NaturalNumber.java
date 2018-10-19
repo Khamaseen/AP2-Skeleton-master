@@ -1,5 +1,7 @@
 package input;
 
+import java.math.BigInteger;
+
 public class NaturalNumber {
 
     private static int START = 0;
@@ -21,7 +23,7 @@ public class NaturalNumber {
     }
 
     public void add(char character) {
-        if( !(lastPosition < naturalNumber.length) ) {
+        if(!(lastPosition < naturalNumber.length)) {
             naturalNumber = doubleNaturalNumber(naturalNumber, lastPosition);
         }
         naturalNumber[lastPosition++] = character;
@@ -44,5 +46,15 @@ public class NaturalNumber {
         }
 
         return temp;
+    }
+
+    public BigInteger getBigInteger(){
+        char[] temp = new char[lastPosition];
+        for(int i=0; i<lastPosition; i++){
+            temp[i] = naturalNumber[i];
+        }
+        String str = String.copyValueOf(temp);
+
+        return new BigInteger(str);
     }
 }
