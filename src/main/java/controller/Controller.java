@@ -37,10 +37,9 @@ public class Controller {
     }
 
     //called by receiver, controller works on set directly
-    public void print(Set set, int count) {
+    public void print(Set set) {
         String answer = set.giveString();
-        answer = String.format("%d: "+answer, count);
-        view.displayAnswers(answer);
+        view.displayAnswers(String.format(answer));
     }
 
     public void printError(String message) {

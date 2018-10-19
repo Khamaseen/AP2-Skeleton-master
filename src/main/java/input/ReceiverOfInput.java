@@ -282,7 +282,7 @@ public class ReceiverOfInput {
         controller.insert(identifier, set);
     }
     public void printSet(Set set) {
-        controller.print(set, count);
+        controller.print(set);
     }
     public Set<BigInteger> getSetFromIdentifier(Identifier identifier) throws APException {
         Set<BigInteger> set = controller.getSet(identifier);
