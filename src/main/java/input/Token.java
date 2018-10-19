@@ -50,7 +50,7 @@ public class Token {
         if( Character.isWhitespace(t.character) ) { t.setKind(WHITE_SPACE); return; }
         if( Character.isAlphabetic(t.character) ) { t.setKind(CHAR); return; }
         if( Character.isDigit(t.character)) {
-            if( t.character == 0 ) { t.setKind(ZERO); return; }
+            if( t.character == '0' ) { t.setKind(ZERO); return; }
             else { t.setKind(NATURAL); return; }
         }
         switch(t.character) {

@@ -94,7 +94,9 @@ public class ReceiverOfInput {
                 set = readExpression();
                 break;
             default:
-                throw new APException("");
+                tokenStream.putBack(t.character);
+                String except = String.format("%d: unknown character after print statement", count);
+                throw new APException(except);
         }
 
         t = tokenStream.skipAndRead();
@@ -225,22 +227,29 @@ public class ReceiverOfInput {
     private Set<Long> readSet() throws APException {
         Set<Long> set = new Set<Long>();
 
+        Token t = tokenStream.skipAndRead();
+        if (t.kind == Token.END_SET) { return set; }
+        else{tokenStream.putBack(t.character);}
         while(true) {
-            Token t = tokenStream.skipAndRead();
+            t = tokenStream.skipAndRead();
             switch(t.kind) {
+                case Token.NATURAL:
+                    set.addElement(readNaturalNumber(t.character));
+                    t = tokenStream.skipAndRead();
+                    if( t.kind == Token.SEPERATOR ) { break; }
+                    if (t.kind == Token.END_SET ) { return set; }
+                    tokenStream.putBack(t.character);
+                    String excep1 = String.format("%d: unexpected character at set :: readSet()", count);
+                    throw new APException(excep1);
                 case Token.ZERO:
                     NaturalNumber naturalNumber = new NaturalNumber(t.character);
                     set.addElement(naturalNumber.getLong());
                     t = tokenStream.skipAndRead();
                     if( t.kind == Token.SEPERATOR ) { break; }
-                    if (t.kind == Token.END_SET ) { tokenStream.putBack(t.character); break; }
-                case Token.NATURAL:
-                    set.addElement(readNaturalNumber(t.character));
-                    t = tokenStream.skipAndRead();
-                    if( t.kind == Token.SEPERATOR ) { break; }
-                    if (t.kind == Token.END_SET ) { tokenStream.putBack(t.character); break; }
-                case Token.END_SET:
-                    return set;
+                    if (t.kind == Token.END_SET ) { return set; }
+                    tokenStream.putBack(t.character);
+                    String answer = String.format("%d: unexpected character at set :: readSet()", count);
+                    throw new APException(answer);
 
                 default:
                     tokenStream.putBack(t.character);
