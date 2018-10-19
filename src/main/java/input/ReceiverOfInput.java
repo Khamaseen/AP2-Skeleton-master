@@ -229,7 +229,7 @@ public class ReceiverOfInput {
                     if(t.kind == Token.SEPERATOR) { break; }
                     if(t.kind == Token.END_SET) { return set; }
                     tokenStream.putBack(t.character);
-                    String excep1 = String.format("%d: error unexpected character at set :: readSet()", count);
+                    String excep1 = String.format("%d: error unexpected character at set", count);
                     throw new APException(excep1);
                 case Token.ZERO:
                     NaturalNumber naturalNumber = new NaturalNumber(t.character);
