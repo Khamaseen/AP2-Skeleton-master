@@ -67,7 +67,7 @@ public class ReceiverOfInput {
             count++;
             if ( count == 115 ){
                 count++;
-                count--;
+                count--;  //change
             }
         }
     }
