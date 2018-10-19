@@ -55,14 +55,20 @@ public class ReceiverOfInput {
                 case Token.PRINT: readPrint(); break;
                 case Token.CHAR: readAssignment(t.character); break;
                 case Token.EOL:
+                    tokenStream.putBack(t.character);
                     String message = String.format("%d: error no statement", count);
                     throw new APException(message);
                 case Token.EOF: return true;
                 default:
+                    tokenStream.putBack(t.character);
                     String except = String.format("%d: error unknown start of statement", count);
                    throw new APException(except);
             }
             count++;
+            if ( count == 115 ){
+                count++;
+                count--;
+            }
         }
     }
 
