@@ -5,12 +5,9 @@ import controller.Controller;
 import data.Identifier;
 import data.Set;
 
-import java.io.InputStream;
-
 public class ReceiverOfInput {
 
     private TokenStream tokenStream;
-    private InputStream streamIn;
     private Controller controller;
     private int count;
 
@@ -25,11 +22,8 @@ public class ReceiverOfInput {
     public void readInput() {
         count = 1;
         try {
-            while(!readProgram()) {
-                // TODO error handling
-            }
+            while(!readProgram()) {}
         } catch (APException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         tokenStream.close();
@@ -38,7 +32,6 @@ public class ReceiverOfInput {
     private Boolean readProgram() throws APException {
         try {
            if(!readStatements()){
-               //todo some error thing
                return false;
            }
            else{
@@ -68,10 +61,6 @@ public class ReceiverOfInput {
                    throw new APException(except);
             }
             count++;
-            if(count == 107){
-                count++;
-                count--;
-            }
         }
     }
 
@@ -221,7 +210,6 @@ public class ReceiverOfInput {
                 String excep = String.format("%d: expecting set, identifier, or expression :: readFactor()", count);
                 throw new APException(excep);
         }
-
     }
 
     private Set<Long> readSet() throws APException {

@@ -6,8 +6,6 @@ import data.Set;
 import input.ReceiverOfInput;
 import ui.View;
 
-import java.io.InputStream;
-
 public class Controller {
 
     private Model model;
@@ -54,6 +52,5 @@ public class Controller {
     public void printError(String message) {
         view.displayAnswers(message);
     }
-
 }
 

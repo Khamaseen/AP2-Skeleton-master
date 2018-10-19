@@ -73,5 +73,4 @@ public class Token {
             default: t.setKind(UNDEFINED); return;
         }
     }
-
 }

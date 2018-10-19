@@ -25,7 +25,6 @@ public class TokenStream {
         //userInputReader = new PushbackReader(new InputStreamReader(System.in));
     }
 
-
     /**
      * close the inputStream
      */
@@ -72,7 +71,6 @@ public class TokenStream {
         }
     }
 
-
     /**
      * puts a character back into the inputstream (this is actually buffered)
      * @param character
@@ -102,5 +100,4 @@ public class TokenStream {
             throw new APException(e.getMessage());
         }
     }
-
 }

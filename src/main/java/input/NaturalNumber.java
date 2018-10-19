@@ -43,6 +43,6 @@ public class NaturalNumber {
             backwards--;
         }
 
-        return temp; //somechange
+        return temp;
     }
 }
