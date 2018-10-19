@@ -1,5 +1,7 @@
 package data;
 
+import controller.APException;
+
 public class Set<E extends Comparable<E>> implements SetInterface<E> {
 
     private List<E> list;
@@ -22,9 +24,11 @@ public class Set<E extends Comparable<E>> implements SetInterface<E> {
         }
     }
 
-    public Set(List<E> input) {
-        if(list instanceof ListInterface<?>) list = (List<E>) input.copy();
-        // else throw exception!
+    public Set(List<E> input) throws APException {
+        if(list instanceof ListInterface<?>) {list = (List<E>) input.copy();}
+        else{
+            throw new APException("error trying to copy a different instance at set");
+        }
     }
 
     public int getSize() {

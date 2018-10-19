@@ -1,5 +1,0 @@
-/ First some initialisation tests
-Aap = { }
-? Aap
-
-

@@ -26,7 +26,6 @@ public class ReceiverOfInput {
         try {
             while(!readProgram()) {}
         } catch (APException e) {
-           // e.printStackTrace();
         }
         tokenStream.close();
     }
@@ -62,13 +61,9 @@ public class ReceiverOfInput {
                 default:
                     tokenStream.putBack(t.character);
                     String except = String.format("%d: error unknown start of statement", count);
-                   throw new APException(except);
+                    throw new APException(except);
             }
             count++;
-            if ( count == 115 ){
-                count++;
-                count--;  //change
-            }
         }
     }
 

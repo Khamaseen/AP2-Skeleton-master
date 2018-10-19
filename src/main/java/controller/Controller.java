@@ -36,14 +36,6 @@ public class Controller {
         model.insert(id, set);
     }
 
-    //called by receiver, controller calls model to give to view
-    public void print(Identifier id, int count) {
-        Set set = model.obtain(id);
-        String answer = set.toString();
-        answer = String.format("%d: "+answer, count);
-        view.displayAnswers(answer);
-    }
-
     //called by receiver, controller works on set directly
     public void print(Set set, int count) {
         String answer = set.giveString();

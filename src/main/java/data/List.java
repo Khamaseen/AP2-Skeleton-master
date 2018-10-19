@@ -3,7 +3,6 @@ package data;
 public class List<E extends Comparable<E>> implements ListInterface<E> {
 
     private class Node {
-
         E data;
         Node prior, next;
 
@@ -39,8 +38,6 @@ public class List<E extends Comparable<E>> implements ListInterface<E> {
     }
 
     public ListInterface<E> insert(E d) {
-
-        //List<E> tempList = (List<E>) this.copy();
         Node newNode = new Node(d);
 
         if(isEmpty()) {
@@ -166,9 +163,6 @@ public class List<E extends Comparable<E>> implements ListInterface<E> {
     }
 
     public ListInterface<E> copy() {
-
-        // Line 146: Comparing to null - check for nullpointer. Also copy and insert call eachother - infinite loop
-
         ListInterface<E> tempList = new List<E>();
         Node tempPtr = head;
 

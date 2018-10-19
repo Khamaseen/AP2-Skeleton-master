@@ -30,10 +30,6 @@ public class Identifier {
         return identifier;
     }
 
-    public int getSize() {
-        return lastPosition;
-    }
-
     @Override
     public int hashCode() {
         int hash = 7;

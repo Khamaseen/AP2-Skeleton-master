@@ -10,11 +10,6 @@ public class NaturalNumber {
     public char[] naturalNumber;
     private int lastPosition;
 
-    public NaturalNumber() {
-        naturalNumber = new char[STARTING_LENGTH];
-        lastPosition = START;
-    }
-
     public NaturalNumber(char first) {
         naturalNumber = new char[STARTING_LENGTH];
         lastPosition = START;
@@ -35,17 +30,6 @@ public class NaturalNumber {
             naturalNumber[x] = instance[x];
         }
         return naturalNumber;
-    }
-
-    public Long getLong() {
-        long temp = 0;
-        int backwards = lastPosition - 1;
-        for(int x = 0; x < lastPosition; x++) {
-            temp += (long) ( ((int) naturalNumber[backwards]) - 48 ) * (Math.pow(10.0, (double) x));
-            backwards--;
-        }
-
-        return temp;
     }
 
     public BigInteger getBigInteger(){
